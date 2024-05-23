@@ -28,14 +28,21 @@ const readJokesFile = (fileName, extension) => {
     return JSON.parse(file);
 }
 
+const readHtmlFile = (fileName, extension) => {
+    const filePath = getFilePath(fileName, extension);
+    const file = fs.readFileSync(filePath, "utf-8");
+    return file;
+}
 //returns the last joke
-const readLastJoke = ({value}) => value;
+const readLastJoke = (value) => value;
 
 
 //overwrite the given file
 const updateJokesFile = (fileName, extension, content) => {
     const filePath = getFilePath(fileName, extension);
-    const string = JSON.stringify(content);
+    const file = readJokesFile(fileName, extension);
+    const updatedFile = [...file, content];
+    const string = JSON.stringify(updatedFile);
     fs.writeFileSync(filePath, string);
 }
 
@@ -46,5 +53,6 @@ module.exports = {
     getFilePath,
     readJokesFile,
     readLastJoke,
-    updateJokesFile
+    updateJokesFile,
+    readHtmlFile
 }
