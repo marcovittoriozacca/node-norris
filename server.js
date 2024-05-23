@@ -18,8 +18,31 @@ const server = http.createServer((req,res) => {
         updateJokesFile('norrisDb','json', [...jokeFile, response.value]);
 
         res.writeHead(200, {"Content-Type": "text/html"});
+
+        //top section of an html tag
+        res.write(`
+            <!DOCTYPE html>
+            <html lang="en">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>Document</title>
+                    <script src="https://cdn.tailwindcss.com"></script>
+                </head>
+            `);
+
+        //body section
+        res.write(`
+            <body class="h-screen flex items-center justify-center bg-slate-100 p-5">
+                <div class="flex flex-col items-center gap-y-5">
+                    <h1 class="text-4xl text-slate-700 text-center">${readLastJoke(response)}</h1>
+                    <small class="text-slate-600">Non so come implementare pagine html con i props :(</small>
+                </div>
+            </body>
+        `);
+
         
-        res.end(`${readLastJoke(response)}`);
+        res.end(`</html>`);
 
     })
 });
