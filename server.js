@@ -2,14 +2,20 @@ require('dotenv').config();
 const path = require('path');
 const fs = require('fs');
 const http = require('http');
+const {getJoke} = require('./utilities.js');
 
 const port = process.env.PORT || 8000;
 const host = process.env.HOST || 'localhost';
 const apiUrl = process.env.API_URL || 'https://api.chucknorris.io/jokes/random';
 
+getJoke(apiUrl, (response) => {
+    console.log(response);
+})
+
 const server = http.createServer((req,res) => {
-        res.writeHead(200, {"Content-Type": "text/html"});
-        res.end();
+    
+    res.writeHead(200, {"Content-Type": "text/html"});    
+    res.end();
 });
 
 server.listen(port, host, () => {
